@@ -1,0 +1,185 @@
+---
+# noqa: var-naming[no-role-prefix]
+
+foreman_content_credentials_ubuntu2004: []
+
+
+foreman_products_defaults: &foreman_products_defaults
+  content_type: deb
+  download_policy: "{{ foreman_products_defaults_download_policy_ubuntu }}"
+  # mirror_on_sync: True
+  # mirroring_policy: "additive"
+  # mirroring_policy: "mirror_content_only"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_ubuntu }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_ubuntu | bool }}"
+  # http_proxy: Default Proxy
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_ubuntu }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_ubuntu | bool }}"
+  deb_components: "{{ foreman_products_defaults_deb_components_ubuntu }}"
+  deb_architectures: "{{ foreman_products_defaults_deb_architectures_ubuntu }}"
+
+
+foreman_products_defaults_ubuntu2004: &foreman_products_defaults_ubuntu2004
+  <<: *foreman_products_defaults
+  download_policy: "{{ foreman_products_defaults_download_policy_ubuntu2004 }}"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_ubuntu2004 }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_ubuntu2004 | bool }}"
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_ubuntu2004 }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_ubuntu2004 | bool }}"
+  deb_components: "{{ foreman_products_defaults_deb_components_ubuntu2004 }}"
+  deb_architectures: "{{ foreman_products_defaults_deb_architectures_ubuntu2004 }}"
+
+
+foreman_products_ubuntu2004:
+  - name: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    label: "{{ foreman_product_label_prefix | default('') }}Ubuntu"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa)"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2004"
+        <<: *foreman_products_defaults_ubuntu2004
+        url: "{{ foreman_repo_baseurl_ubuntu2004 }}/"
+        deb_releases: focal
+        organization: "{{ foreman_organization_ubuntu2004 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Updates"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-updates"
+        <<: *foreman_products_defaults_ubuntu2004
+        url: "{{ foreman_repo_baseurl_ubuntu2004 }}/"
+        deb_releases: focal-updates
+        organization: "{{ foreman_organization_ubuntu2004 }}"
+      # - name: Ubuntu 20.04 LTS (Focal Fossa) - Proposed Updates
+      #   label: ubuntu-2004-proposed
+      #   <<: *foreman_products_defaults_ubuntu2004
+      #   url: "{{ foreman_repo_baseurl_ubuntu2004 }}/"
+      #   deb_releases: focal-proposed
+      #   organization: "{{ foreman_organization_ubuntu2004 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Backports"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-backports"
+        <<: *foreman_products_defaults_ubuntu2004
+        url: "{{ foreman_repo_baseurl_ubuntu2004 }}/"
+        deb_releases: focal-backports
+        organization: "{{ foreman_organization_ubuntu2004 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Security updates"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-security"
+        <<: *foreman_products_defaults_ubuntu2004
+        url: "{{ foreman_repo_baseurl_ubuntu2004 }}/"
+        deb_releases: focal-security
+        organization: "{{ foreman_organization_ubuntu2004 }}"
+
+
+foreman_content_views_ubuntu2004:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa)"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2004 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_updates"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Updates"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2004 }}"
+  # - name: "{{ foreman_cv_prefix | default('cv_') }}ubuntu2004_proposed"
+  #   organization: "{{ foreman_organization_ubuntu2004 }}"
+  #   repositories:
+  #     - name: Ubuntu 20.04 LTS (Focal Fossa) - Proposed Updates
+  #       product: Ubuntu
+  #   allow_promote: "{{ foreman_cv_allow_promote_ubuntu2004 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_backports"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Backports"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2004 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_security"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa) - Security updates"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2004 }}"
+
+foreman_composite_content_views_ubuntu2004:
+  - name: "{{ foreman_ccv_prefix | default('ccv_') }}{{ foreman_ccv_name_prefix | default('') }}ubuntu2004"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    composite: True
+    allow_promote: "{{ foreman_ccv_allow_promote_ubuntu2004 }}"
+    auto_publish: "{{ foreman_ccv_auto_publish_ubuntu2004 }}"
+    components:
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004"
+        latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_updates"
+        latest: true
+      # - content_view: "{{ foreman_cv_prefix | default('cv_') }}ubuntu2004_proposed"
+      #   latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_backports"
+        latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2004_security"
+        latest: true
+
+
+foreman_operatingsystems_defaults: &foreman_operatingsystems_defaults
+  os_family: "Debian"
+  password_hash: "SHA512"
+  architectures: "{{ foreman_operatingsystems_ubuntu2004_architectures }}"
+  # ptables:
+  #   - Preseed default
+  #   - Preseed default LVM
+  ptables: "{{ foreman_operatingsystems_ubuntu2004_ptables }}"
+
+
+foreman_operatingsystems_ubuntu2004:
+  - name: "Ubuntu"
+    major: "20"
+    minor: "04"
+    release_name: focal
+    description: "Ubuntu 20.04 LTS (Focal Fossa)"
+    default_templates: "{{ foreman_operatingsystems_ubuntu2004_default_templates | default( foreman_operatingsystems_ubuntu2x_default_templates | default( foreman_operatingsystems_deb_default_templates | default([]) ) ) }}"
+    <<: *foreman_operatingsystems_defaults
+
+
+foreman_installation_media_defaults: &foreman_installation_media_defaults
+  os_family: Debian
+  # organizations:
+  #   - "{{ foreman_organization }}"
+  # locations:
+  #   - "{{ foreman_default_location }}"
+  organizations: "{{ foreman_installation_media_ubuntu2004_organizations }}"
+  locations: "{{ foreman_installation_media_ubuntu2004_locations }}"
+  operatingsystems: "{{ foreman_installation_media_ubuntu2004_operatingsystems }}"
+
+
+foreman_installation_media_ubuntu2004:
+  - name: "{{ foreman_media_name_prefix | default('') }}Ubuntu 20.04 LTS (Focal Fossa)"
+    path: "https://{{ foreman_server_hostname }}/pulp/content/{{ foreman_organization }}/Library/custom/Ubuntu/ubuntu-2004/"
+    <<: *foreman_installation_media_defaults
+
+
+foreman_activation_keys_defaults: &foreman_activation_keys_defaults
+  # lifecycle_environment: "Library"
+  # subscriptions:
+  #   - name: "Ubuntu"
+  auto_attach: False
+
+
+foreman_activation_keys_ubuntu2004:
+  - name: "{{ foreman_ak_prefix | default('ak_') }}{{ foreman_ak_name_prefix | default('') }}ubuntu2004"
+    organization: "{{ foreman_organization_ubuntu2004 }}"
+    content_view: "{{ foreman_ccv_prefix | default('ccv_') }}{{ foreman_ccv_name_prefix | default('') }}ubuntu2004"
+    <<: *foreman_activation_keys_defaults
+    content_overrides:
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2004"
+        override: enabled
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-updates"
+        override: enabled
+      # - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-proposed"
+      #   override: default
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-backports"
+        override: disabled
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2004-security"
+        override: disabled
+
+
+foreman_sync_plan_products_ubuntu2004:
+  - Ubuntu
+

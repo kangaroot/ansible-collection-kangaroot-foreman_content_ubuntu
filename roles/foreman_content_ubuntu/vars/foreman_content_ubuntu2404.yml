@@ -1,0 +1,185 @@
+---
+# noqa: var-naming[no-role-prefix]
+
+foreman_content_credentials_ubuntu2404: []
+
+
+foreman_products_defaults: &foreman_products_defaults
+  content_type: deb
+  download_policy: "{{ foreman_products_defaults_download_policy_ubuntu }}"
+  # mirror_on_sync: True
+  # mirroring_policy: "additive"
+  # mirroring_policy: "mirror_content_only"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_ubuntu }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_ubuntu | bool }}"
+  # http_proxy: Default Proxy
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_ubuntu }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_ubuntu | bool }}"
+  deb_components: "{{ foreman_products_defaults_deb_components_ubuntu }}"
+  deb_architectures: "{{ foreman_products_defaults_deb_architectures_ubuntu }}"
+
+
+foreman_products_defaults_ubuntu2404: &foreman_products_defaults_ubuntu2404
+  <<: *foreman_products_defaults
+  download_policy: "{{ foreman_products_defaults_download_policy_ubuntu2404 }}"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_ubuntu2404 }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_ubuntu2404 | bool }}"
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_ubuntu2404 }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_ubuntu2404 | bool }}"
+  deb_components: "{{ foreman_products_defaults_deb_components_ubuntu2404 }}"
+  deb_architectures: "{{ foreman_products_defaults_deb_architectures_ubuntu2404 }}"
+
+
+foreman_products_ubuntu2404:
+  - name: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    label: "{{ foreman_product_label_prefix | default('') }}Ubuntu"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat)"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2404"
+        <<: *foreman_products_defaults_ubuntu2404
+        url: "{{ foreman_repo_baseurl_ubuntu2404 }}/"
+        deb_releases: noble
+        organization: "{{ foreman_organization_ubuntu2404 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Updates"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-updates"
+        <<: *foreman_products_defaults_ubuntu2404
+        url: "{{ foreman_repo_baseurl_ubuntu2404 }}/"
+        deb_releases: noble-updates
+        organization: "{{ foreman_organization_ubuntu2404 }}"
+      # - name: Ubuntu 24.04 LTS (Noble Numbat) - Proposed Updates
+      #   label: ubuntu-2404-proposed
+      #   <<: *foreman_products_defaults_ubuntu2404
+      #   url: "{{ foreman_repo_baseurl_ubuntu2404 }}/"
+      #   deb_releases: noble-proposed
+      #   organization: "{{ foreman_organization_ubuntu2404 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Backports"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-backports"
+        <<: *foreman_products_defaults_ubuntu2404
+        url: "{{ foreman_repo_baseurl_ubuntu2404 }}/"
+        deb_releases: noble-backports
+        organization: "{{ foreman_organization_ubuntu2404 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Security updates"
+        label: "{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-security"
+        <<: *foreman_products_defaults_ubuntu2404
+        url: "{{ foreman_repo_baseurl_ubuntu2404 }}/"
+        deb_releases: noble-security
+        organization: "{{ foreman_organization_ubuntu2404 }}"
+
+
+foreman_content_views_ubuntu2404:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat)"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2404 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_updates"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Updates"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2404 }}"
+  # - name: "{{ foreman_cv_prefix | default('cv_') }}ubuntu2404_proposed"
+  #   organization: "{{ foreman_organization_ubuntu2404 }}"
+  #   repositories:
+  #     - name: Ubuntu 24.04 LTS (Noble Numbat) - Proposed Updates
+  #       product: Ubuntu
+  #   allow_promote: "{{ foreman_cv_allow_promote_ubuntu2404 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_backports"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Backports"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2404 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_security"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat) - Security updates"
+        product: "{{ foreman_product_name_prefix | default('') }}Ubuntu"
+    allow_promote: "{{ foreman_cv_allow_promote_ubuntu2404 }}"
+
+foreman_composite_content_views_ubuntu2404:
+  - name: "{{ foreman_ccv_prefix | default('ccv_') }}{{ foreman_ccv_name_prefix | default('') }}ubuntu2404"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    composite: True
+    allow_promote: "{{ foreman_ccv_allow_promote_ubuntu2404 }}"
+    auto_publish: "{{ foreman_ccv_auto_publish_ubuntu2404 }}"
+    components:
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404"
+        latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_updates"
+        latest: true
+      # - content_view: "{{ foreman_cv_prefix | default('cv_') }}ubuntu2404_proposed"
+      #   latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_backports"
+        latest: true
+      - content_view: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}ubuntu2404_security"
+        latest: true
+
+
+foreman_operatingsystems_defaults: &foreman_operatingsystems_defaults
+  os_family: "Debian"
+  password_hash: "SHA512"
+  architectures: "{{ foreman_operatingsystems_ubuntu2404_architectures }}"
+  # ptables:
+  #   - Preseed default
+  #   - Preseed default LVM
+  ptables: "{{ foreman_operatingsystems_ubuntu2404_ptables }}"
+
+
+foreman_operatingsystems_ubuntu2404:
+  - name: "Ubuntu"
+    major: "22"
+    minor: "04"
+    release_name: noble
+    description: "Ubuntu 24.04 LTS (Noble Numbat)"
+    default_templates: "{{ foreman_operatingsystems_ubuntu2404_default_templates | default( foreman_operatingsystems_ubuntu2x_default_templates | default( foreman_operatingsystems_deb_default_templates | default([]) ) ) }}"
+    <<: *foreman_operatingsystems_defaults
+
+
+foreman_installation_media_defaults: &foreman_installation_media_defaults
+  os_family: Debian
+  # organizations:
+  #   - "{{ foreman_organization }}"
+  # locations:
+  #   - "{{ foreman_default_location }}"
+  organizations: "{{ foreman_installation_media_ubuntu2404_organizations }}"
+  locations: "{{ foreman_installation_media_ubuntu2404_locations }}"
+  operatingsystems: "{{ foreman_installation_media_ubuntu2404_operatingsystems }}"
+
+
+foreman_installation_media_ubuntu2404:
+  - name: "{{ foreman_media_name_prefix | default('') }}Ubuntu 24.04 LTS (Noble Numbat)"
+    path: "https://{{ foreman_server_hostname }}/pulp/content/{{ foreman_organization }}/Library/custom/Ubuntu/ubuntu-2404/"
+    <<: *foreman_installation_media_defaults
+
+
+foreman_activation_keys_defaults: &foreman_activation_keys_defaults
+  # lifecycle_environment: "Library"
+  # subscriptions:
+  #   - name: "Ubuntu"
+  auto_attach: False
+
+
+foreman_activation_keys_ubuntu2404:
+  - name: "{{ foreman_ak_prefix | default('ak_') }}{{ foreman_ak_name_prefix | default('') }}ubuntu2404"
+    organization: "{{ foreman_organization_ubuntu2404 }}"
+    content_view: "{{ foreman_ccv_prefix | default('ccv_') }}{{ foreman_ccv_name_prefix | default('') }}ubuntu2404"
+    <<: *foreman_activation_keys_defaults
+    content_overrides:
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2404"
+        override: enabled
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-updates"
+        override: enabled
+      # - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-proposed"
+      #   override: default
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-backports"
+        override: disabled
+      - label: "{{ foreman_organization }}_{{ foreman_product_label_prefix | default('') }}Ubuntu_{{ foreman_repo_label_prefix | default('') }}ubuntu-2404-security"
+        override: disabled
+
+
+foreman_sync_plan_products_ubuntu2404:
+  - Ubuntu
+

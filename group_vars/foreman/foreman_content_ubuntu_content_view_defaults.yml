@@ -14,10 +14,6 @@
 # foreman_ccv_allow_promote_ubuntu: "{{ foreman_ccv_allow_promote | bool }}"
 # foreman_ccv_auto_publish_ubuntu: "{{ foreman_ccv_auto_publish | bool }}"
 
-# foreman_cv_allow_promote_ubuntu1804: "{{ foreman_cv_allow_promote_ubuntu | bool }}"
-# foreman_ccv_allow_promote_ubuntu1804: "{{ foreman_ccv_allow_promote_ubuntu | bool }}"
-# foreman_ccv_auto_publish_ubuntu1804: "{{ foreman_ccv_auto_publish_ubuntu | bool }}"
-
 # foreman_cv_allow_promote_ubuntu2004: "{{ foreman_cv_allow_promote_ubuntu | bool }}"
 # foreman_ccv_allow_promote_ubuntu2004: "{{ foreman_ccv_allow_promote_ubuntu | bool }}"
 # foreman_ccv_auto_publish_ubuntu2004: "{{ foreman_ccv_auto_publish_ubuntu | bool }}"

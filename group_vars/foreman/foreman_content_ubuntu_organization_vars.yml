@@ -8,7 +8,6 @@
 
 # foreman_organization_ubuntu: "{{ foreman_organization }}"
 
-# foreman_organization_ubuntu1804: "{{ foreman_organization_ubuntu }}"
 # foreman_organization_ubuntu2004: "{{ foreman_organization_ubuntu }}"
 # foreman_organization_ubuntu2204: "{{ foreman_organization_ubuntu }}"
 # foreman_organization_ubuntu2404: "{{ foreman_organization_ubuntu }}"

@@ -130,7 +130,7 @@ foreman_operatingsystems_defaults: &foreman_operatingsystems_defaults
 
 foreman_operatingsystems_ubuntu2404:
   - name: "Ubuntu"
-    major: "22"
+    major: "24"
     minor: "04"
     release_name: noble
     description: "Ubuntu 24.04 LTS (Noble Numbat)"
